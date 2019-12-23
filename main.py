@@ -25,13 +25,14 @@ def daterange(date1, date2):
         yield date1 + timedelta(n)
 
 #to get the songs url by date range
-def download_in_range_date(start_dt, end_dt):
+def download_in_range_date(start_dt, end_dt,output_folder):
     
     for dt in daterange(start_dt, end_dt):
 
         song_name = start_song+ dt.strftime("%Y%m%d") + end_of_song + extension
         song_url = base_url + dt.strftime("%Y/%m/%d/") + song_name
-        print(song_url)
+        file_details = song_url,song_name
+        get_file(file_details,output_folder)
 
 #to get a single song
 def download_in_single_date(dt, output_folder):
@@ -50,4 +51,5 @@ def get_file(file_details, output_folder):
 
     wget.download(url,output_folder + filename)
 
-download_in_single_date(end_dt,output_folder)
+#download_in_single_date(end_dt,output_folder)
+download_in_range_date(start_dt,end_dt,output_folder)
